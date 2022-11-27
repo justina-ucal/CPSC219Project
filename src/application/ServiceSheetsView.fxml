@@ -15,7 +15,7 @@
    <children>
          	<Label alignment="CENTER" text="Let's Bookkeep!">
          <font>
-            <Font name="Calibri Bold" size="17.0" />
+            <Font name="Franklin Gothic Medium" size="17.0" />
          </font>
            	</Label>
       <Button defaultButton="true" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#enterEarnings" text="Enter earnings">
