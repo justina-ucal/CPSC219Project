@@ -21,6 +21,18 @@ public class ServiceSheetsController {
 	}
 	
 	@FXML
+	void addExpenseTextField (VBox editExpensesRow) {
+		HBox expensesHBox = new HBox();
+    	TextField expensesTextField = new TextField("0.00");
+    	expensesTextField.setPrefWidth(60);
+    	expensesTextField.setStyle("-fx-text-fill: red;");
+    	Label writeOffLabel = new Label(" Expense can be written off ");
+    	CheckBox taxableCheckBox = new CheckBox();
+    	expensesHBox.getChildren().addAll(expensesTextField,writeOffLabel,taxableCheckBox);
+    	editExpensesRow.getChildren().addAll(expensesHBox);
+	}
+	
+	@FXML
     void enterEarnings (ActionEvent enterEarningsEvent) {
 		Scene mainScene = applicationStage.getScene();
 		applicationStage.setTitle("Enter earnings");
@@ -100,6 +112,7 @@ public class ServiceSheetsController {
     	expensesHBox.getChildren().addAll(expensesTextField,writeOffLabel,taxableCheckBox);
     	Button addButton = new Button("(+) add expense");
     	expensesRow.getChildren().addAll(expensesHBox,addButton);
+    	addButton.setOnAction(addEvent -> addExpenseTextField(expensesRow));
     	
     	Button earningsButton = new Button("Calculate daily earnings");
     	
@@ -151,6 +164,7 @@ public class ServiceSheetsController {
     	expensesHBox.getChildren().addAll(expensesTextField,writeOffLabel,taxableCheckBox);
     	Button addButton = new Button("(+) add expense");
     	expensesRow.getChildren().addAll(expensesHBox,addButton);
+    	addButton.setOnAction(addEvent -> addExpenseTextField(expensesRow));
     	
     	Button expensesButton = new Button("Click to calculate expenses total");
     	
@@ -166,6 +180,7 @@ public class ServiceSheetsController {
     	Scene expensesScene = new Scene(expensesBox,400,500);
     	
     	applicationStage.setScene(expensesScene);
+    	
 	}
 	
 
