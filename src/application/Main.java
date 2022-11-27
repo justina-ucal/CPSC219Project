@@ -15,11 +15,12 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			VBox root = loader.load(new FileInputStream("src/application/ServiceSheetsView.fxml"));
-			
+			root.setStyle("-fx-background-color: pink;");
+
 			ServiceSheetsController controller = (ServiceSheetsController)loader.getController();
 			controller.applicationStage = primaryStage;
 			
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root,400,500);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Manage Spreadsheets");
 			primaryStage.show();
@@ -32,4 +33,5 @@ public class Main extends Application {
 		launch(args);
 	}
 }
+
 
