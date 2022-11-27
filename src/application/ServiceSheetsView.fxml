@@ -11,43 +11,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.collections.FXCollections?>
 
-<VBox prefHeight="98.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GradeCalculatorController">
+<VBox prefHeight="98.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ServiceSheetsController">
    <children>
-      <MenuBar>
-        <menus>
-          <Menu mnemonicParsing="false" text="Connect to Excel">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Profile">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-         	<Label fx:id="courseGradeLabel" alignment="CENTER" text="My Sheets">
+         	<Label alignment="CENTER" text="Let's Bookkeep!">
          <font>
-            <Font name="Calibri Bold" size="14.0" />
+            <Font name="Calibri Bold" size="17.0" />
          </font>
            	</Label>
-      <Button defaultButton="true" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" text="Enter earnings">
+      <Button defaultButton="true" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#enterEarnings" text="Enter earnings">
          <font>
             <Font name="Calibri" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="10.0" layoutY="60.0" mnemonicParsing="false" text="Enter expenses">
-         <font>
-            <Font name="Calibri" size="15.0" />
-         </font>
-      </Button>
-      <Button layoutX="10.0" layoutY="88.0" mnemonicParsing="false" text="Generate paystub">
+      <Button layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#enterExpenses" text="Enter expenses">
          <font>
             <Font name="Calibri" size="15.0" />
          </font>

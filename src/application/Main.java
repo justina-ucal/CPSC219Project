@@ -1,5 +1,5 @@
 package application;
-
+	
 import java.io.FileInputStream;
 
 import javafx.application.Application;
@@ -15,9 +15,10 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			VBox root = loader.load(new FileInputStream("src/application/ServiceSheetsView.fxml"));
-			Scene scene = new Scene(root,500,500);
+			
+			Scene scene = new Scene(root,400,400);
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("Manage Your Spreadsheets");
+			primaryStage.setTitle("Manage Spreadsheets");
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -28,3 +29,4 @@ public class Main extends Application {
 		launch(args);
 	}
 }
+
