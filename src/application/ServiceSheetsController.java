@@ -13,7 +13,29 @@ public class ServiceSheetsController {
 	Stage applicationStage;
 	
 	@FXML
-    void enterEarnings (ActionEvent enterEarningsEvent) {}
+    void enterEarnings (ActionEvent enterEarningsEvent) {
+		Scene mainScene = applicationStage.getScene();
+		applicationStage.setTitle("Enter earnings");
+		
+		VBox earningsBox = new VBox();
+    	
+    	Label titleLabel = new Label("Enter earnings");
+    	
+    	Button doneButton = new Button("Done");
+    	doneButton.setOnAction(doneEvent -> addEarnings(mainScene));
+  
+    	earningsBox.getChildren().addAll(titleLabel, doneButton);
+    	Scene earningsScene = new Scene(earningsBox,400,400);
+    	
+    	applicationStage.setScene(earningsScene);
+	}
+	
+	@FXML
+	void addEarnings(Scene mainScene) {
+		
+		applicationStage.setScene(mainScene);
+    	applicationStage.setTitle("Earnings Added");
+	}
 	
 	@FXML
     void enterExpenses (ActionEvent enterExpensesEvent) {
