@@ -45,8 +45,12 @@ public class ServiceSheetsController {
 	}
 	
 	@FXML
-	void calcDailyEarnings (TextField hoursTextField, TextField wageTextField, TextField commissionTextField,
-			TextField tipsEarnedTextField, TextField tipOutTextField, ArrayList<TextField> expensesArrayList) {
+	void calcDailyPL (TextField hoursTextField, TextField wageTextField, TextField commissionTextField,
+			TextField tipsEarnedTextField, TextField tipOutTextField, ArrayList<TextField> expensesArrayList,
+			Label dailyLabel, TextField currencyTextField, Label codeErrorLabel) {
+		/**
+		 * PL stands from "Profit and Loss"
+		 */
 		//+
 		double hourlyTotal = 0;
 		double commission = 0;
@@ -55,39 +59,56 @@ public class ServiceSheetsController {
 		//-
 		double expensesTotal = 0;
 		
-		UserInput hoursInput = new UserInput();
-		//TO-DO: use constructor to verify input
-		UserInput wageInput = new UserInput();
-		//TO-DO: use constructor to verify input
-		hourlyTotal = hoursInput.convertStringToDouble(hoursTextField)
-				* wageInput.convertStringToDouble(wageTextField);
-		System.out.println("Total hourly entered: " + hourlyTotal);
+		/*try {UserInput currencyInput = new UserInput(currencyTextField.getText());
+		} catch(AlphaCodeFormatException acfe) {applicationStage.setTitle("Error occurred: Invalid entry");
+			codeErrorLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: red;");
+			codeErrorLabel.setText(" Er: (!) Invalid value entered. Currency code must be exactly three letters.");}
+		*/
 		
-		UserInput commissionInput = new UserInput();
-		//TO-DO: use constructor to verify input
-		commission = commissionInput.convertStringToDouble(commissionTextField);
-		System.out.println("Total commission entered: " + commission);
-		
-		UserInput tipsEarnedInput = new UserInput();
-		//TO-DO: use constructor to verify input
-		UserInput tipOutInput = new UserInput();
-		//TO-DO: use constructor to verify input
-		tipsTotal = tipsEarnedInput.convertStringToDouble(tipsEarnedTextField)
-				- tipOutInput.convertStringToDouble(tipOutTextField);
-		System.out.println("Total tips entered: " + tipsTotal);
-		
-		for(TextField textfield: expensesArrayList) {
-			UserInput expensesInput = new UserInput();
-			//TO-DO: use constructor to verify input
-			expensesTotal += expensesInput.convertStringToDouble(textfield);
-			//String expenseEnteredString = textfield.getText();
-			//Double expenseEnteredDouble = Double.parseDouble(expenseEnteredString);
-			//expensesTotal += expenseEnteredDouble;
-			}
-		System.out.println("Total expenses entered: " + expensesTotal);
+		try{UserInput currencyInput = new UserInput(currencyTextField.getText());
 			
-		double dailyEarnings = (hourlyTotal + commission + tipsTotal) - expensesTotal;
-		System.out.println("Total daily earnings entered: " + dailyEarnings);
+			UserInput hoursInput = new UserInput(hoursTextField);
+			UserInput wageInput = new UserInput(wageTextField);
+			
+			hourlyTotal = hoursInput.getUserInput() * wageInput.getUserInput();
+			System.out.println("Total hourly income entered: " + hourlyTotal);
+			
+			UserInput commissionInput = new UserInput(commissionTextField);
+			
+			commission = commissionInput.getUserInput();
+			System.out.println("Total commission income entered: " + commission);
+			
+			UserInput tipsEarnedInput = new UserInput(tipsEarnedTextField);
+			UserInput tipOutInput = new UserInput(tipOutTextField);
+			
+			tipsTotal = tipsEarnedInput.getUserInput() - tipOutInput.getUserInput();
+			System.out.println("Total tips income entered: " + tipsTotal);
+			
+			for(TextField textfield: expensesArrayList) {
+				UserInput expensesInput = new UserInput(textfield);
+				
+				expensesTotal += expensesInput.getUserInput();
+				}
+			System.out.println("Total daily expenses entered: " + expensesTotal);
+				
+			double dailyEarnings = (hourlyTotal + commission + tipsTotal) - expensesTotal;
+			System.out.println("Total daily income: " + dailyEarnings);
+			
+			applicationStage.setTitle("Calculations completed: earnings must still be entered");
+			
+			dailyLabel.setText("Based on the information entered above, your total is: " + dailyEarnings + " " +
+					currencyTextField.getText());
+		} catch(AlphaCodeFormatException acfe) {applicationStage.setTitle("Error occurred: Invalid entry");
+			codeErrorLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: red;");
+			codeErrorLabel.setText(" Er: (!) Invalid value entered. Currency code must be exactly three letters.");
+			}
+		} catch(NumberFormatException nfe) {
+			applicationStage.setTitle("Error occurred: Invalid entry");
+			dailyLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: red;");
+			dailyLabel.setText(" Er: (!) Invalid value entered. All earnings and/or expenses entries must"
+					+ "\n be numeric, and may include only a single decimal point (optional)."
+					+ "\n Do not include any letters or characters (e.g. $ or %).");
+		}
 	}
 	
 	@FXML
@@ -130,6 +151,8 @@ public class ServiceSheetsController {
     	currencyTextField.setPrefWidth(40);
     	currencyRow.getChildren().addAll(currencyLabel,currencyTextField);
     	
+    	Label codeErrorLabel = new Label("");
+    	
     	Label earningsLabel = new Label("\nEarnings");
     	earningsLabel.setStyle("-fx-font-weight: bold;");
     	
@@ -163,7 +186,7 @@ public class ServiceSheetsController {
     	tipOutButton.setStyle("-fx-background-radius: 100");
     	tipsRow.getChildren().addAll(tipsEarnedLabel,tipsEarnedTextField,tipOutLabel,tipOutTextField,tipOutButton);
     	
-    	Label expensesLabel = new Label("\nDaily expenses");
+    	Label expensesLabel = new Label("\nDaily Expenses");
     	expensesLabel.setStyle("-fx-font-weight: bold;");
     	
     	ArrayList<TextField> expensesArrayList = new ArrayList<TextField>();
@@ -180,9 +203,13 @@ public class ServiceSheetsController {
     	expensesRow.getChildren().addAll(expensesHBox,addButton);
     	addButton.setOnAction(addEvent -> addExpenseTextField(expensesRow, expensesArrayList));
     	
-    	Button earningsButton = new Button("Calculate daily earnings");
-    	earningsButton.setOnAction(calcEvent -> calcDailyEarnings(hoursTextField, wageTextField, commissionTextField,
-    			tipsEarnedTextField, tipOutTextField, expensesArrayList));
+    	Label dailyInfoLabel = new Label("\nDaily Total Earnings");
+    	dailyInfoLabel.setStyle("-fx-font-weight: bold;");
+    	Label dailyLabel = new Label("---Press below to calculate your take-home---");
+    	
+    	Button earningsButton = new Button("Calculate");
+    	earningsButton.setOnAction(calcEvent -> calcDailyPL(hoursTextField, wageTextField, commissionTextField,
+    			tipsEarnedTextField, tipOutTextField, expensesArrayList, dailyLabel, currencyTextField, codeErrorLabel));
     	
     	Button enterEarningsButton = new Button("Enter daily earnings");
     	enterEarningsButton.setStyle("-fx-padding: 0.7em 0.7em;");
@@ -191,9 +218,9 @@ public class ServiceSheetsController {
     	abortButton.setStyle("-fx-background-radius: 100");
     	abortButton.setOnAction(abortEvent -> cancel(mainScene));
  
-    	earningsBox.getChildren().addAll(titleLabel,dateRow,incomeInfoLabel,incomeSourceRow,currencyRow,
-    			earningsLabel,hourlyRow,comissionRow,tipsRow,expensesLabel,expensesRow,earningsButton,
-    			enterEarningsButton,abortButton);
+    	earningsBox.getChildren().addAll(titleLabel,dateRow,incomeInfoLabel,incomeSourceRow,currencyRow,codeErrorLabel,
+    			earningsLabel,hourlyRow,comissionRow,tipsRow,expensesLabel,expensesRow,dailyInfoLabel,
+    			dailyLabel,earningsButton,enterEarningsButton,abortButton);
     	Scene earningsScene = new Scene(earningsBox,400,500);
     	
     	applicationStage.setScene(earningsScene);
@@ -241,7 +268,14 @@ public class ServiceSheetsController {
     	expensesRow.getChildren().addAll(expensesHBox,addButton);
     	addButton.setOnAction(addEvent -> addExpenseTextField(expensesRow, expensesArrayList));
     	
-    	Button expensesButton = new Button("Click to calculate expenses total");
+    	Label dailyInfoLabel = new Label("\nDaily Total Expenses");
+    	dailyInfoLabel.setStyle("-fx-font-weight: bold;");
+    	Label dailyLabel = new Label("---Press below to calculate your spendings---");
+    	
+    	Button expensesButton = new Button("Calculate");
+    	TextField currencyTextField = new TextField("CAD");
+    	expensesButton.setOnAction(calcEvent -> calcDailyPL(null, null, null, null, null, expensesArrayList,
+    			dailyLabel,currencyTextField,null));
     	
     	Button enterExpensesButton = new Button("Enter expenses");
     	enterExpensesButton.setStyle("-fx-padding: 0.7em 0.7em;");
@@ -250,8 +284,8 @@ public class ServiceSheetsController {
     	abortButton.setStyle("-fx-background-radius: 100");
     	abortButton.setOnAction(abortEvent -> cancel(mainScene));
   
-    	expensesBox.getChildren().addAll(titleLabel,dateRow,expensesLabel,expensesRow,expensesButton,
-    			enterExpensesButton,abortButton);
+    	expensesBox.getChildren().addAll(titleLabel,dateRow,expensesLabel,expensesRow,dailyInfoLabel,
+    			dailyLabel,expensesButton,enterExpensesButton,abortButton);
     	Scene expensesScene = new Scene(expensesBox,400,500);
     	
     	applicationStage.setScene(expensesScene);
