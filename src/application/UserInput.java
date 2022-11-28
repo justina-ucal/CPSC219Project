@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 public class UserInput {
 	
 	private double userInput;
+	private String capitalizedCode;
 	
 	UserInput(TextField userEntered) throws NumberFormatException{
 		/**
@@ -41,13 +42,24 @@ public class UserInput {
 			for(char c: currencyCode.toCharArray()) {
 				if(java.lang.Character.isLetter(c) == false) {validEntry = false;}
 			}
-			if(validEntry = false) {throw new AlphaCodeFormatException("INVALID ENTRY - CODE FORMAT ERROR: "
+			if(validEntry == false) {throw new AlphaCodeFormatException("INVALID ENTRY - CODE FORMAT ERROR: "
 					+ currencyCode);}
+			if(validEntry ==true) {capitalizedCode = currencyCode.toUpperCase();}
 		}
 	}
+	
+	/*UserInput(String month, String date){
+		if(month.toCharArray().length !=2 && date.toCharArray().length !=2 ) {
 			
+		}
+	}*/
+	
 	public double getUserInput() {
 		return userInput;
+	}
+	
+	public String getCaptalizedCode() {
+		return capitalizedCode;
 	}
 
 }

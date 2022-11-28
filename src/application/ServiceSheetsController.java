@@ -59,12 +59,6 @@ public class ServiceSheetsController {
 		//-
 		double expensesTotal = 0;
 		
-		/*try {UserInput currencyInput = new UserInput(currencyTextField.getText());
-		} catch(AlphaCodeFormatException acfe) {applicationStage.setTitle("Error occurred: Invalid entry");
-			codeErrorLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: red;");
-			codeErrorLabel.setText(" Er: (!) Invalid value entered. Currency code must be exactly three letters.");}
-		*/
-		
 		try{UserInput currencyInput = new UserInput(currencyTextField.getText());
 			
 			UserInput hoursInput = new UserInput(hoursTextField);
@@ -96,19 +90,26 @@ public class ServiceSheetsController {
 			
 			applicationStage.setTitle("Calculations completed: earnings must still be entered");
 			
+			codeErrorLabel.setText("");
+			dailyLabel.setStyle("-fx-font-weight: normal; -fx-text-fill: black;");
 			dailyLabel.setText("Based on the information entered above, your total is: " + dailyEarnings + " " +
-					currencyTextField.getText());
-		} catch(AlphaCodeFormatException acfe) {applicationStage.setTitle("Error occurred: Invalid entry");
+					currencyInput.getCaptalizedCode());
+			
+		} catch(AlphaCodeFormatException acfe) {
+			applicationStage.setTitle("Error occurred: Invalid entry");
+			dailyLabel.setStyle("-fx-font-weight: normal; -fx-text-fill: black;");
+			dailyLabel.setText("Must resolve currency code error. See above.");
 			codeErrorLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: red;");
-			codeErrorLabel.setText(" Er: (!) Invalid value entered. Currency code must be exactly three letters.");
-			}
+			codeErrorLabel.setText(" Er: (!) Invalid value entered. Currency code must be exactly three letters."
+					+ "\n Do not include any spaces.");
+		
 		} catch(NumberFormatException nfe) {
 			applicationStage.setTitle("Error occurred: Invalid entry");
 			dailyLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: red;");
 			dailyLabel.setText(" Er: (!) Invalid value entered. All earnings and/or expenses entries must"
 					+ "\n be numeric, and may include only a single decimal point (optional)."
 					+ "\n Do not include any letters or characters (e.g. $ or %).");
-		}
+			}
 	}
 	
 	@FXML
