@@ -20,7 +20,7 @@ public class Main extends Application {
 			ServiceSheetsController controller = (ServiceSheetsController)loader.getController();
 			controller.applicationStage = primaryStage;
 			
-			Scene scene = new Scene(root,400,500);
+			Scene scene = new Scene(root,450,650);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Manage Spreadsheets");
 			primaryStage.show();

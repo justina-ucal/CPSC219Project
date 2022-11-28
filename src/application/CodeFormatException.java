@@ -1,27 +1,27 @@
 package application;
 
-public class AlphaCodeFormatException extends Exception {
+public class CodeFormatException extends Exception {
 
-	public AlphaCodeFormatException() {
+	public CodeFormatException() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AlphaCodeFormatException(String message) {
+	public CodeFormatException(String message) {
 		super(message);
 		System.out.println(message);
 	}
 
-	public AlphaCodeFormatException(Throwable cause) {
+	public CodeFormatException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public AlphaCodeFormatException(String message, Throwable cause) {
+	public CodeFormatException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public AlphaCodeFormatException(String message, Throwable cause, boolean enableSuppression,
+	public CodeFormatException(String message, Throwable cause, boolean enableSuppression,
 			boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub
