@@ -79,26 +79,27 @@ public class UserInput {
 			}
 		}
 		
-		int validDate = Integer.parseInt(date);
-		int validMonth = Integer.parseInt(month);
+		if (validEntry != false) {
 		
-		if(validEntry == true) {
+			int validDate = Integer.parseInt(date);
+			int validMonth = Integer.parseInt(month);
+		
+			if(validEntry == true) {
+				if(validMonth > 12) {validEntry = false;}
+				if(validDate > 31) {validEntry = false;}
+			}
 			
-			if(validMonth > 12) {validEntry = false;}
-			
-			if(validDate > 31) {validEntry = false;}
-		}
-			
-		if(validDate == 31) {
+			if(validDate == 31) {
 				if(validMonth == 2 || validMonth == 4 || validMonth == 6 || validMonth == 9 || validMonth == 11) {
 					validEntry = false;}
 			}
 		
-		if(validDate == 30) {
-			if(validMonth == 2) {
-				validEntry = false;}
+			if(validDate == 30) {
+				if(validMonth == 2) {
+					validEntry = false;}
 	
 			}
+		}
 		
 		if(validEntry == false) {throw new CodeFormatException("INVALID ENTRY - MM/DD CODE FORMAT "
 				+ "ERROR: " + month + "/" + date);}

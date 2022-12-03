@@ -15,11 +15,14 @@ public class ServiceSheetsController {
 	Stage applicationStage;
 	
 	@FXML
-	void cancel(Scene mainScene) {
+	void cancel(Scene mainScene, CalculatePL unsavedEntry) {
 		/**
 		 * returns user to home menu without running any calculations nor saving any changes to the CSV file
+		 * this method will also reset changes made to the CalculatePL's instance variables
 		 * @param mainScene	is the Scene that sets the home menu 
+		 * @param unsavedEntry is the Object/instance of CalculatePL created by the method now calling the cancel method
 		 */
+		unsavedEntry.reset();
 		applicationStage.setScene(mainScene);
 		applicationStage.setTitle("Manage Spreadsheets");
 		
@@ -159,7 +162,7 @@ public class ServiceSheetsController {
     	
     	Button abortButton = new Button("Cancel");
     	abortButton.setStyle("-fx-background-radius: 100");
-    	abortButton.setOnAction(abortEvent -> cancel(mainScene));
+    	abortButton.setOnAction(abortEvent -> cancel(mainScene, dailyEarnings));
  
     	earningsBox.getChildren().addAll(titleLabel,dateRow,dateErrorLabel,incomeInfoLabel,incomeSourceRow,currencyRow,
     			codeErrorLabel,earningsLabel,hourlyRow,comissionRow,tipsRow,expensesLabel,expensesRow,dailyInfoLabel,
@@ -194,7 +197,10 @@ public class ServiceSheetsController {
     	dayTextField.setPrefWidth(35);
     	dateRow.getChildren().addAll(monthLabel,monthTextField,dayLabel,dayTextField);
     	
-    	Label expensesLabel = new Label("\nExpenses");
+    	Label dateErrorLabel = new Label("");
+    	dateErrorLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: red");
+    	
+    	Label expensesLabel = new Label("Expenses");
     	expensesLabel.setStyle("-fx-font-weight: bold;");
     	
     	ArrayList<TextField> expensesArrayList = new ArrayList<TextField>();
@@ -224,16 +230,19 @@ public class ServiceSheetsController {
     	
     	Label enterLabel = new Label("\nEnter Expenses");
     	enterLabel.setStyle("-fx-font-weight: bold;");
-    	
+    	Label enterErrorLabel = new Label("\n");
+    	enterErrorLabel.setStyle("-fx-font-weight: bold; -fx-text-fill:red;");
     	Button enterExpensesButton = new Button("Save");
     	enterExpensesButton.setStyle("-fx-padding: 0.7em 0.7em;");
+    	enterExpensesButton.setOnAction(dataEntryEvent -> expensesEntry.fillDailyArray(monthTextField,dayTextField,
+    			dateErrorLabel,enterErrorLabel));
     	
     	Button abortButton = new Button("Cancel");
     	abortButton.setStyle("-fx-background-radius: 100");
-    	abortButton.setOnAction(abortEvent -> cancel(mainScene));
+    	abortButton.setOnAction(abortEvent -> cancel(mainScene, expensesEntry));
   
-    	expensesBox.getChildren().addAll(titleLabel,dateRow,expensesLabel,expensesRow,dailyInfoLabel,
-    			dailyLabel,expensesButton,enterLabel,enterExpensesButton,abortButton);
+    	expensesBox.getChildren().addAll(titleLabel,dateRow,dateErrorLabel,expensesLabel,expensesRow,
+    			dailyInfoLabel,dailyLabel,expensesButton,enterLabel,enterExpensesButton,enterErrorLabel,abortButton);
     	Scene expensesScene = new Scene(expensesBox,450,650);
     	
     	applicationStage.setScene(expensesScene);

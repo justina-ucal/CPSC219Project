@@ -10,6 +10,12 @@ public class CalculatePL {
 	private String[] dailyArray;
 	private int wasCalculated;
 
+	void reset() {
+		this.dailyArray = null;
+		this.wasCalculated = 0;
+		System.out.println("All entries cleared and not saved");
+	}
+	
 	void calcDailyPL (TextField hoursTextField, TextField wageTextField, TextField commissionTextField,
 			TextField tipsEarnedTextField, TextField tipOutTextField, ArrayList<TextField> expensesArrayList,
 			Label dailyLabel, TextField currencyTextField, Label codeErrorLabel) {
@@ -105,8 +111,8 @@ public class CalculatePL {
 				UserInput dateInput = new UserInput(monthTextField, dayTextField);	
 				dateErrorLabel.setText(" ");
 			} catch(CodeFormatException cfe) {dateErrorLabel.setText(" Er: (!) "
-					+ "Invalid date entered. Date must be a real calendar date.\n"
-					+ " Here's an example of a correctly formatted, valid date in March: 03 31");
+					+ "Invalid date entered. Date must be a real calendar date to be valid. \n"
+					+ " Only include 1-2 digits per text field. Do not include spaces or symbols.\n");
 				
 			}
 		}
