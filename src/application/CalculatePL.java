@@ -6,8 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class CalculatePL {
+	
+	private String[] dailyArray;
+	private int wasCalculated;
 
-	String[] calcDailyPL (TextField hoursTextField, TextField wageTextField, TextField commissionTextField,
+	void calcDailyPL (TextField hoursTextField, TextField wageTextField, TextField commissionTextField,
 			TextField tipsEarnedTextField, TextField tipOutTextField, ArrayList<TextField> expensesArrayList,
 			Label dailyLabel, TextField currencyTextField, Label codeErrorLabel) {
 		/**
@@ -74,8 +77,8 @@ public class CalculatePL {
 			
 		} catch(CodeFormatException cfe) {
 			//applicationStage.setTitle("Error occurred: Invalid entry");
-			dailyLabel.setStyle("-fx-font-weight: normal; -fx-text-fill: black;");
-			dailyLabel.setText("Must resolve currency code error. See above.");
+			dailyLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: red;");
+			dailyLabel.setText(" (!) Must resolve currency code error. See above.");
 			codeErrorLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: red;");
 			codeErrorLabel.setText(" Er: (!) Invalid value entered. Currency code must be exactly three letters."
 					+ "\n Do not include any spaces.");
@@ -85,9 +88,27 @@ public class CalculatePL {
 			dailyLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: red;");
 			dailyLabel.setText(" Er: (!) Invalid value entered. All earnings and/or expenses entries must"
 					+ "\n be numeric, and may include only a single decimal point (optional)."
-					+ "\n Do not include any letters or characters (e.g. $ or %).");
+					+ "\n Do not include any letters or special characters (e.g. $ or %).");
 			}
 		
-		return babyArray;
+		this.dailyArray = babyArray;
+		this.wasCalculated = 1;
 	}	
+
+	
+	void fillDailyArray(TextField monthTextField, TextField dayTextField, Label dateErrorLabel, Label enterErrorLabel) {
+		if(this.wasCalculated != 1) {enterErrorLabel.setText(" Er: (!) "
+				+ "Must first calculate earnings above to write data to file.");
+		}
+		else if(this.wasCalculated == 1) {
+			try{enterErrorLabel.setText(" ");
+				UserInput dateInput = new UserInput(monthTextField, dayTextField);	
+				dateErrorLabel.setText(" ");
+			} catch(CodeFormatException cfe) {dateErrorLabel.setText(" Er: (!) "
+					+ "Invalid date entered. Date must be a real calendar date.\n"
+					+ " Here's an example of a correctly formatted, valid date in March: 03 31");
+				
+			}
+		}
+	}
 }

@@ -52,7 +52,7 @@ public class UserInput {
 		}
 	}
 	
-	UserInput(String month, String date) throws CodeFormatException{
+	UserInput(TextField monthTextField, TextField dateTextField) throws CodeFormatException{
 		/**
 		 * constructor validates that user entered a valid digit or couple of digits (i.e. two digits)
 		 * to represent the month and date, respectively
@@ -61,6 +61,9 @@ public class UserInput {
 		 * @param date	should be two digits no more than 31 (or no more than 30 or 29 given the month)
 		 */
 		boolean validEntry = true;
+		
+		String month = monthTextField.getText();
+		String date = dateTextField.getText();
 				
 		if(month.toCharArray().length == 1) {month = "0" + month;}
 		if(date.toCharArray().length == 1) {date = "0" + date;}
@@ -75,26 +78,35 @@ public class UserInput {
 				if(java.lang.Character.isDigit(c) == false){validEntry = false;}
 			}
 		}
-		if(validEntry == false){throw new CodeFormatException("INVALID ENTRY - MM/DD CODE FORMAT ERROR: "
-				+ month + "/" + date);}
+		
+		int validDate = Integer.parseInt(date);
+		int validMonth = Integer.parseInt(month);
 		
 		if(validEntry == true) {
-			if(Double.parseDouble(month) > 12) {validEntry = false;}
-			if(Double.parseDouble(date) > 31) {validEntry = false;}
 			
-			if(date == "31") {
-				if(month == "2" || month == "4" || month == "6" || month == "9" || month == "11") {
+			if(validMonth > 12) {validEntry = false;}
+			
+			if(validDate > 31) {validEntry = false;}
+		}
+			
+		if(validDate == 31) {
+				if(validMonth == 2 || validMonth == 4 || validMonth == 6 || validMonth == 9 || validMonth == 11) {
 					validEntry = false;}
 			}
-			if(date == "30") {
-				if(month == "2") {validEntry = false;}
+		
+		if(validDate == 30) {
+			if(validMonth == 2) {
+				validEntry = false;}
+	
 			}
-			if(validEntry == false) {throw new CodeFormatException("INVALID ENTRY - MM/DD CODE FORMAT "
-					+ "ERROR: " + month + "/" + date);}
-			if(validEntry == true) {
-				mm = month;
-				dd = date;
-			}
+		
+		if(validEntry == false) {throw new CodeFormatException("INVALID ENTRY - MM/DD CODE FORMAT "
+				+ "ERROR: " + month + "/" + date);}
+			
+		if(validEntry == true) {
+			mm = month;
+			dd = date;
+			System.out.println("Date entered: " + mm + "/" + dd);
 		}
 	}
 	

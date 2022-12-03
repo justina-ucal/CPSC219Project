@@ -70,7 +70,10 @@ public class ServiceSheetsController {
     	dayTextField.setPrefWidth(35);
     	dateRow.getChildren().addAll(monthLabel,monthTextField,dayLabel,dayTextField);
     	
-    	Label incomeInfoLabel = new Label("\nIncome Info.");
+    	Label dateErrorLabel = new Label("");
+    	dateErrorLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: red");
+    	
+    	Label incomeInfoLabel = new Label("Income Info.");
     	incomeInfoLabel.setStyle("-fx-font-weight: bold;");
     	
     	HBox incomeSourceRow = new HBox();
@@ -86,7 +89,7 @@ public class ServiceSheetsController {
     	
     	Label codeErrorLabel = new Label("");
     	
-    	Label earningsLabel = new Label("\nEarnings");
+    	Label earningsLabel = new Label("Earnings");
     	earningsLabel.setStyle("-fx-font-weight: bold;");
     	
     	HBox hourlyRow = new HBox();
@@ -147,18 +150,20 @@ public class ServiceSheetsController {
     	
     	Label enterLabel = new Label("\nEnter Earnings");
     	enterLabel.setStyle("-fx-font-weight: bold;");
-    	
-    	Button enterEarningsButton = new Button("Enter data");
+    	Label enterErrorLabel = new Label("\n");
+    	enterErrorLabel.setStyle("-fx-font-weight: bold; -fx-text-fill:red;");
+    	Button enterEarningsButton = new Button("Save");
     	enterEarningsButton.setStyle("-fx-padding: 0.7em 0.7em;");
-    	//enterEaningsButton.setOnAction(dataEntryEvent -> );
+    	enterEarningsButton.setOnAction(dataEntryEvent -> dailyEarnings.fillDailyArray(monthTextField,dayTextField,
+    			dateErrorLabel,enterErrorLabel));
     	
     	Button abortButton = new Button("Cancel");
     	abortButton.setStyle("-fx-background-radius: 100");
     	abortButton.setOnAction(abortEvent -> cancel(mainScene));
  
-    	earningsBox.getChildren().addAll(titleLabel,dateRow,incomeInfoLabel,incomeSourceRow,currencyRow,codeErrorLabel,
-    			earningsLabel,hourlyRow,comissionRow,tipsRow,expensesLabel,expensesRow,dailyInfoLabel,
-    			dailyLabel,earningsButton,enterLabel,enterEarningsButton,abortButton);
+    	earningsBox.getChildren().addAll(titleLabel,dateRow,dateErrorLabel,incomeInfoLabel,incomeSourceRow,currencyRow,
+    			codeErrorLabel,earningsLabel,hourlyRow,comissionRow,tipsRow,expensesLabel,expensesRow,dailyInfoLabel,
+    			dailyLabel,earningsButton,enterLabel,enterEarningsButton,enterErrorLabel,abortButton);
     	Scene earningsScene = new Scene(earningsBox,450,650);
     	
     	applicationStage.setScene(earningsScene);
@@ -217,7 +222,10 @@ public class ServiceSheetsController {
     	expensesButton.setOnAction(calcEvent -> expensesEntry.calcDailyPL(null, null, null, null, null, expensesArrayList,
     			dailyLabel,currencyTextField,codeErrorLabel));
     	
-    	Button enterExpensesButton = new Button("Enter expenses");
+    	Label enterLabel = new Label("\nEnter Expenses");
+    	enterLabel.setStyle("-fx-font-weight: bold;");
+    	
+    	Button enterExpensesButton = new Button("Save");
     	enterExpensesButton.setStyle("-fx-padding: 0.7em 0.7em;");
     	
     	Button abortButton = new Button("Cancel");
@@ -225,7 +233,7 @@ public class ServiceSheetsController {
     	abortButton.setOnAction(abortEvent -> cancel(mainScene));
   
     	expensesBox.getChildren().addAll(titleLabel,dateRow,expensesLabel,expensesRow,dailyInfoLabel,
-    			dailyLabel,expensesButton,enterExpensesButton,abortButton);
+    			dailyLabel,expensesButton,enterLabel,enterExpensesButton,abortButton);
     	Scene expensesScene = new Scene(expensesBox,450,650);
     	
     	applicationStage.setScene(expensesScene);
