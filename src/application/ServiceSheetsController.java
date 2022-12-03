@@ -1,7 +1,6 @@
 package application;
 
 import java.util.ArrayList;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -82,7 +81,8 @@ public class ServiceSheetsController {
     	HBox incomeSourceRow = new HBox();
     	Label incomeSourceLabel = new Label("Source of Income ");
     	TextField incomeSourceTextField = new TextField();
-    	incomeSourceRow.getChildren().addAll(incomeSourceLabel,incomeSourceTextField);
+    	Label optionalLabel = new Label(" (optional)");
+    	incomeSourceRow.getChildren().addAll(incomeSourceLabel,incomeSourceTextField,optionalLabel);
     	
     	HBox currencyRow = new HBox();
     	Label currencyLabel = new Label("Currency Code ");
@@ -158,7 +158,7 @@ public class ServiceSheetsController {
     	Button enterEarningsButton = new Button("Save");
     	enterEarningsButton.setStyle("-fx-padding: 0.7em 0.7em;");
     	enterEarningsButton.setOnAction(dataEntryEvent -> dailyEarnings.fillDailyArray(monthTextField,dayTextField,
-    			dateErrorLabel,enterErrorLabel));
+    			dateErrorLabel,incomeSourceTextField,enterErrorLabel));
     	
     	Button abortButton = new Button("Cancel");
     	abortButton.setStyle("-fx-background-radius: 100");
@@ -200,6 +200,15 @@ public class ServiceSheetsController {
     	Label dateErrorLabel = new Label("");
     	dateErrorLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: red");
     	
+    	Label expenseInfoLabel = new Label("Expense Info.");
+    	expenseInfoLabel.setStyle("-fx-font-weight: bold;");
+    	
+    	HBox expenseTypeRow = new HBox();
+    	Label expenseTypeLabel = new Label("Type of Expense ");
+    	TextField incomeSourceTextField = new TextField();
+    	Label optionalLabel = new Label(" (optional)");
+    	expenseTypeRow.getChildren().addAll(expenseTypeLabel,incomeSourceTextField,optionalLabel);
+    	
     	Label expensesLabel = new Label("Expenses");
     	expensesLabel.setStyle("-fx-font-weight: bold;");
     	
@@ -235,14 +244,15 @@ public class ServiceSheetsController {
     	Button enterExpensesButton = new Button("Save");
     	enterExpensesButton.setStyle("-fx-padding: 0.7em 0.7em;");
     	enterExpensesButton.setOnAction(dataEntryEvent -> expensesEntry.fillDailyArray(monthTextField,dayTextField,
-    			dateErrorLabel,enterErrorLabel));
+    			dateErrorLabel,null,enterErrorLabel));
     	
     	Button abortButton = new Button("Cancel");
     	abortButton.setStyle("-fx-background-radius: 100");
     	abortButton.setOnAction(abortEvent -> cancel(mainScene, expensesEntry));
   
-    	expensesBox.getChildren().addAll(titleLabel,dateRow,dateErrorLabel,expensesLabel,expensesRow,
-    			dailyInfoLabel,dailyLabel,expensesButton,enterLabel,enterExpensesButton,enterErrorLabel,abortButton);
+    	expensesBox.getChildren().addAll(titleLabel,dateRow,dateErrorLabel,expenseInfoLabel,expenseTypeRow,
+    			expensesLabel,expensesRow,dailyInfoLabel,dailyLabel,expensesButton,enterLabel,enterExpensesButton,
+    			enterErrorLabel,abortButton);
     	Scene expensesScene = new Scene(expensesBox,450,650);
     	
     	applicationStage.setScene(expensesScene);

@@ -120,17 +120,20 @@ public class UserInput {
 	}
 	
 	public String getFormattedDate() {
-		if(mm=="01") {return ("Jan " + dd);}
-		else if(mm=="02") {return ("Feb " + dd);}
-		else if(mm=="03") {return ("Mar " + dd);}
-		else if(mm=="04") {return ("Apr " + dd);}
-		else if(mm=="05") {return ("May " + dd);}
-		else if(mm=="06") {return ("Jun " + dd);}
-		else if(mm=="07") {return ("Jul " + dd);}
-		else if(mm=="08") {return ("Aug " + dd);}
-		else if(mm=="09") {return ("Sep " + dd);}
-		else if(mm=="10") {return ("Oct " + dd);}
-		else if(mm=="11") {return ("Nov " + dd);}
+		
+		int mmInt = Integer.parseInt(mm);
+		
+			 if(mmInt==1) {return ("Jan " + dd);}
+		else if(mmInt==2) {return ("Feb " + dd);}
+		else if(mmInt==3) {return ("Mar " + dd);}
+		else if(mmInt==4) {return ("Apr " + dd);}
+		else if(mmInt==5) {return ("May " + dd);}
+		else if(mmInt==6) {return ("Jun " + dd);}
+		else if(mmInt==7) {return ("Jul " + dd);}
+		else if(mmInt==8) {return ("Aug " + dd);}
+		else if(mmInt==9) {return ("Sep " + dd);}
+		else if(mmInt==10) {return ("Oct " + dd);}
+		else if(mmInt==11) {return ("Nov " + dd);}
 		else {return ("Dec " + dd);}
 	}
 

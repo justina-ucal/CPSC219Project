@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.*?>
@@ -13,14 +14,31 @@
 
 <VBox prefHeight="98.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ServiceSheetsController">
 	<children>
-		<Label text="Let's Bookkeep">
+		<Label alignment="TOP_LEFT" text="Bookkeeping Home Menu">
          <font>
-            <Font name="System Bold"/>
-         </font></Label>
-		<Button defaultButton="true" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#enterEarnings" text="Enter earnings">
-		</Button>
-		<Button layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#enterExpenses" text="Enter expenses">
-		</Button>
+            <Font name="Calibri" size="38.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.48863636363636354" centerY="0.48543689320388356" focusAngle="106.76" focusDistance="0.024390243902439046" radius="0.7804878048780488">
+               <stops>
+                  <Stop color="#e043aa" />
+                  <Stop color="#f49bf8" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </textFill></Label>
+		<Button layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#enterEarnings" text="⁕ Enter earnings">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+		<Button layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#enterExpenses" text="⁕ Enter expenses">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="20.0" />
+         </font></Button>
 	</children>
 </VBox>
-
