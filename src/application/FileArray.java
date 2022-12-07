@@ -57,7 +57,7 @@ public class FileArray extends CalculatePL{
 				
 				try{ManageFile newEntry = new ManageFile();
 					//calculate income tax
-					try{Taxes incomeTax = new Taxes(newEntry, super.takeHome);
+					try{Taxes incomeTax = new Taxes();
 						this.dailyArray[19] = incomeTax.calcIncomeTax(super.takeHome);
 						this.dailyArray[22] = String.valueOf(super.takeHome - Double.parseDouble(this.dailyArray[19]) - super.allExpenses);
 					} catch(NumberFormatException nfe) {WindowAction abort = new WindowAction();

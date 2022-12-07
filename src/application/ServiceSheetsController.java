@@ -76,9 +76,7 @@ public class ServiceSheetsController {
     	TextField commissionTextField = new TextField("0.00");
     	commissionTextField.setPrefWidth(60);
     	commissionTextField.setStyle("-fx-text-fill: green;");
-    	Button comissionButton = new Button("Need to calculate");
-    	comissionButton.setStyle("-fx-background-radius: 100");
-    	comissionRow.getChildren().addAll(comissionLabel,commissionTextField,comissionButton);
+    	comissionRow.getChildren().addAll(comissionLabel,commissionTextField);
     	
     	HBox tipsRow = new HBox();
     	Label tipsEarnedLabel = new Label("Tips earned ");
@@ -89,9 +87,7 @@ public class ServiceSheetsController {
     	TextField tipOutTextField = new TextField("0.00");
     	tipOutTextField.setPrefWidth(50);
     	tipOutTextField.setStyle("-fx-text-fill: red;");
-    	Button tipOutButton = new Button("Need to calculate");
-    	tipOutButton.setStyle("-fx-background-radius: 100");
-    	tipsRow.getChildren().addAll(tipsEarnedLabel,tipsEarnedTextField,tipOutLabel,tipOutTextField,tipOutButton);
+    	tipsRow.getChildren().addAll(tipsEarnedLabel,tipsEarnedTextField,tipOutLabel,tipOutTextField);
     	
     	Label expensesLabel = new Label("\nDaily Expenses");
     	expensesLabel.setStyle("-fx-font-weight: bold;");

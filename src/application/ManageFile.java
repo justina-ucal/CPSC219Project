@@ -20,13 +20,14 @@ public class ManageFile {
 		
 		if(! bookkeepingFile.exists()) {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(bookkeepingPath));
-		writer.write("Date,Currency,Source of Income,Total daily earnings,YTD,Total daily base pay earned,"
+		writer.write("Date,Currency,Source of Income,Total daily earnings,YTD,Total daily base pay (hourly) earned,"
 				+ "Total daily commission earned,Total daily tips earned,Tip-out ($),Tip-out (%),Daily "
-				+ "(taxable) expenses,YTD,,Daily (non-taxabale) expenses *keep recepits*,YTD,,Taxes + CPP"
-				+ " + EI,YTD,,Net daily earnings (take-home minus daily expenses and taxes),YTD" +
+				+ "(taxable) expenses,YTD,,Daily (non-taxabale) expenses *keep recepits*,YTD,,Total take-home"
+				+ " (taxable) income (after tip-out),YTD,,Taxes + CPP + EI,YTD,,Net daily earnings (take-home "
+				+ "minus daily expenses and taxes),YTD" +
 				"\n "
-				+ "\nDrag formulas down from bottom right corner,,,,,,,=(I4/D4),,=(K4+L3),,,=(N4+O3),,,"
-				+ "=(Q4+R3),,,=(T4+U3),,,=(W4+X3)");
+				+ "\nDrag formulas down from bottom right corner,,,,=(D3+E2),,,,,=(I3/D3),,=(K3+L2),,,=(N3+O2),,,"
+				+ "=(Q3+R2),,,=(T3+U2),,,=(W3+X2)");
 			
 		writer.close();}
 	}
@@ -39,6 +40,7 @@ public class ManageFile {
 			
 			int index = 0;
 			while(index < completeArray.length) {
+				if(completeArray[index] == null) {completeArray[index] = "";}
 				if(index == 0) {writer.write(completeArray[index]);}
 				else{writer.write("," + completeArray[index]);}
 				index ++;
@@ -47,7 +49,8 @@ public class ManageFile {
 			writer.close();
 	}
 	
-	double readIncomeYTD() throws IOException, NumberFormatException {
+	//FUTURE
+	/*double readIncomeYTD() throws IOException, NumberFormatException {
 		
 		BufferedReader reader = new BufferedReader(new FileReader(bookkeepingPath));
 		
@@ -69,5 +72,5 @@ public class ManageFile {
 		
 		return returnValue;
 		
-	}
+	}*/
 }
