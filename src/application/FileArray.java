@@ -53,20 +53,20 @@ public class FileArray extends CalculatePL{
 				
 				
 				try{ManageFile newEntry = new ManageFile();
+					//calculate income tax
+					Taxes incomeTax = new Taxes(newEntry);
+					incomeTax.calcIncomeTax(super.takeHome);
 				
 					//append file with dailyArray
 					try{newEntry.appendToCSVFile(super.dailyArray);
 					
 					} catch(IOException ioe) {System.out.println("INPUT/OUTPUT ISSUE - ERROR OCCURED WHILE"
-							+ " APPENDING DATA for: " + super.dailyArray[0] + " to: c:/cpsc219/servicesheets/csvfile");}
+							+ " APPENDING DATA for: " + super.dailyArray[0] + " to: serviceSheets.csv");}
 					
 				} catch(IOException ioe) {System.out.println("INPUT/OUTPUT ISSUE - ERROR OCCURED WHILE"
-						+ " ACCESSING OR CREATING: c:/cpsc219/servicesheets/csvfile");}
+						+ " CREATING OR ACCESSING: serviceSheets.csv");}
 				
-				//calculate income tax
-				/*Taxes incomeTax = new Taxes();
-				incomeTax.calcIncomeTax(super.takeHome);
-				*/
+				
 				
 				//net daily earnings this.dailyArray[22]
 				//= takeHome - this.dailyArray[19] (taxes) - allExpenses

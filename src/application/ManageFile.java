@@ -1,8 +1,12 @@
 package application;
 
 import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.oi.FileReader;
+import java.util.Scanner;
 import java.io.IOException;
 
 public class ManageFile {
@@ -48,5 +52,19 @@ public class ManageFile {
 			
 			writer.close();
 	}
+	
+	void readIncomeYTD() throws IOException {
+		
+		BufferedReader reader = new BufferedReader(new FileReader(bookkeepingPath));
+		
+		String line = reader.readLine();
+
+		while(line != null){}
+        return reader.getLineNumber();
+
+		reader.close();
+		
+}
+
 
 }

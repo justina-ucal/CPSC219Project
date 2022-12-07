@@ -1,24 +1,28 @@
 package application;
 
+import java.io.IOException;
+
 public class Taxes {
 	private double incomeYTD;
+	private double incomeTax;
+	private double EIcontribution;
+	private double CPPcontribution;
 
-	Taxes(){
+	Taxes(ManageFile bookkeepingCSV){
 		/**
 		 * constructor pull Total take-home (taxable) income (after tip-out) YTD [17] from file = incomeYTD
 		 */
+		try{bookkeepingCSV.readIncomeYTD();
+		} catch(IOException ioe) {System.out.println("INPUT/OUTPUT ISSUE - ERROR OCCURED WHILE"
+				+ " READING: serviceSheets.csv");}
 	}
 	
-/*	void calcIncomeTax(double takeHomeEarnings) {
+	void calcIncomeTax(double takeHomeEarnings) {
 		/**
 		 * NOTE: the method assumes user will not jump more than one tax bracket in one day
 		 * if user does, the code does not account for this and will calculate the tax on a portion of user's
 		 * daily income at a higher rate than they will actually be taxed at
 		 */
-		
-	/*	double incomeTax = 0.0;
-		double EIcontribution = 0.0;
-		double CPPcontribution = 0.0;
 		
 		//pull Total take-home (taxable) income (after tip-out) YTD [17] from file = incomeYTD
 		double taxableIncome = incomeYTD + takeHomeEarnings - 13808;
@@ -74,7 +78,7 @@ public class Taxes {
 			incomeTax = (lowerBracket * (lowRate)) + (upperBracket * (highRate));
 		} else incomeTax = (takeHomeEarnings)*(highRate);
 		return incomeTax;
-	}*/
+	}
 		
 
 }
