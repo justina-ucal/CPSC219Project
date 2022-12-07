@@ -13,13 +13,14 @@ public class CalculatePL {
 	protected double takeHome;
 	protected double nonTaxableExpenses;
 
-	void reset() {
+	void reset(int reasonCodeReset) {
 		this.dailyArray = null;
 		this.wasCalculated = 0;
 		this.allExpenses = 0.0;
 		this.takeHome = 0.0;
 		this.nonTaxableExpenses = 0.0;
-		System.out.println("All entries cleared and not saved");
+		if(reasonCodeReset == 2) {System.out.println("All entries cleared and saved to serviceSheets.csv file");}
+		else {System.out.println("All entries cleared and not saved");}
 	}
 	
 	void calcDailyPL (TextField hoursTextField, TextField wageTextField, TextField commissionTextField,

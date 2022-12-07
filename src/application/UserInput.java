@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 public class UserInput {
 	
 	private double userInput;
+	private double fileData;
 	private String capitalizedCode;
 	private String mm;
 	private String dd;
@@ -33,6 +34,24 @@ public class UserInput {
 				}
 		}
 	}
+	
+	UserInput(String[] previousTakeHomeData) throws NumberFormatException{
+		/**
+		 * 
+		 */
+		if(previousTakeHomeData[16] == null) {fileData = 0.0;}
+		else {	boolean blankEntry = true;
+				for(char c: previousTakeHomeData[16].toCharArray()) {
+						if(c != ' ') {blankEntry = false;}
+						}
+					if(blankEntry == true) {fileData = 0.0;}
+					else try {userInput = Double.parseDouble(previousTakeHomeData[16]);
+						} catch(NumberFormatException nfe) {
+							System.out.println("\nINVALID TAKE-HOME INCOME DATA - CHECK CSV FILE:" + previousTakeHomeData[16]);
+							throw nfe;
+						}
+				}
+		}
 	
 	UserInput(String currencyCode) throws CodeFormatException{
 		/**
@@ -116,6 +135,10 @@ public class UserInput {
 		 * method returns user input (converted from TextField entry to double) for earning/expense
 		 */
 		return userInput;
+	}
+	
+	public double getFileData() {
+		return fileData;
 	}
 	
 	public String getCaptalizedCode() {

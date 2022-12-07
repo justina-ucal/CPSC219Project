@@ -131,11 +131,12 @@ public class ServiceSheetsController {
     	Button enterEarningsButton = new Button("Save");
     	enterEarningsButton.setStyle("-fx-padding: 0.7em 0.7em;");
     	enterEarningsButton.setOnAction(dataEntryEvent -> dailyEarnings.fillDailyArray(monthTextField,dayTextField,
-    			dateErrorLabel,incomeSourceTextField,expensesArrayList,taxCheckArrayList,enterErrorLabel));
+    			dateErrorLabel,incomeSourceTextField,expensesArrayList,taxCheckArrayList,enterErrorLabel,applicationStage,mainScene,
+    			dailyEarnings));
     	
     	Button abortButton = new Button("Cancel");
     	abortButton.setStyle("-fx-background-radius: 100");
-    	abortButton.setOnAction(abortEvent -> window.cancel(applicationStage, mainScene, dailyEarnings));
+    	abortButton.setOnAction(abortEvent -> window.cancel(applicationStage,mainScene,dailyEarnings,0));
  
     	earningsBox.getChildren().addAll(titleLabel,dateRow,dateErrorLabel,incomeInfoLabel,incomeSourceRow,currencyRow,
     			codeErrorLabel,earningsLabel,hourlyRow,comissionRow,tipsRow,expensesLabel,expensesRow,dailyInfoLabel,
@@ -224,11 +225,12 @@ public class ServiceSheetsController {
     	Button enterExpensesButton = new Button("Save");
     	enterExpensesButton.setStyle("-fx-padding: 0.7em 0.7em;");
     	enterExpensesButton.setOnAction(dataEntryEvent -> expensesEntry.fillDailyArray(monthTextField,dayTextField,
-    			dateErrorLabel,expensesTypeTextField,expensesArrayList,taxCheckArrayList,enterErrorLabel));
+    			dateErrorLabel,expensesTypeTextField,expensesArrayList,taxCheckArrayList,enterErrorLabel,applicationStage,
+    			mainScene,expensesEntry));
     	
     	Button abortButton = new Button("Cancel");
     	abortButton.setStyle("-fx-background-radius: 100");
-    	abortButton.setOnAction(abortEvent -> window.cancel(applicationStage, mainScene, expensesEntry));
+    	abortButton.setOnAction(abortEvent -> window.cancel(applicationStage,mainScene,expensesEntry,0));
   
     	expensesBox.getChildren().addAll(titleLabel,dateRow,dateErrorLabel,expenseInfoLabel,expenseTypeRow,
     			expensesLabel,expensesRow,dailyInfoLabel,dailyLabel,expensesButton,enterLabel,enterExpensesButton,

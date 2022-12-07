@@ -12,18 +12,21 @@ import javafx.scene.layout.VBox;
 
 public class WindowAction {
 
-	void cancel(Stage applicationStage, Scene mainScene, CalculatePL unsavedEntry) {
+	void cancel(Stage applicationStage, Scene mainScene, CalculatePL unsavedEntry, int reasonCodeCleared) {
 		/**
 		 * returns user to home menu without running any calculations nor saving any changes to the CSV file
 		 * this method will also reset changes made to the CalculatePL's instance variables
 		 * @param mainScene	is the Scene that sets the home menu 
 		 * @param unsavedEntry is the Object/instance of CalculatePL created by the method now calling the cancel method
 		 */
-		unsavedEntry.reset();
+		unsavedEntry.reset(reasonCodeCleared);
 		applicationStage.setScene(mainScene);
-		applicationStage.setTitle("Manage Spreadsheets");
+		if(reasonCodeCleared == 0) applicationStage.setTitle("Manage Spreadsheets");
+		if(reasonCodeCleared == 1) applicationStage.setTitle("IOFile Error Occurred: Previous Data Lost");
+		if(reasonCodeCleared == 2) applicationStage.setTitle("Entry Successful!");
 		
 	}
+
 	
 	void addExpenseTextField (VBox expensesRow, ArrayList<TextField> expensesArrayList, ArrayList<CheckBox> 
 			taxCheckArrayList) {
