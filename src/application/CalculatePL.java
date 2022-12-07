@@ -10,11 +10,15 @@ public class CalculatePL {
 	protected String[] dailyArray;
 	protected int wasCalculated;
 	protected double allExpenses;
-	private double takeHome;
+	protected double takeHome;
+	protected double nonTaxableExpenses;
 
 	void reset() {
 		this.dailyArray = null;
 		this.wasCalculated = 0;
+		this.allExpenses = 0.0;
+		this.takeHome = 0.0;
+		this.nonTaxableExpenses = 0.0;
 		System.out.println("All entries cleared and not saved");
 	}
 	

@@ -151,7 +151,7 @@ public class ServiceSheetsController {
 		 * sets the Scene for the user to enter some expenses after having pressed the "Enter expenses" Button
 		 * on the home menu (i.e. mainScene) resulting in the Action Event (passed to this method)
 		 * @param enterExpensesEvent
-		 *//*
+		 */
 		WindowAction window = new WindowAction();
 		
 		Scene mainScene = applicationStage.getScene();
@@ -180,14 +180,16 @@ public class ServiceSheetsController {
     	
     	HBox expenseTypeRow = new HBox();
     	Label expenseTypeLabel = new Label("Type of Expense ");
-    	TextField incomeSourceTextField = new TextField();
+    	TextField expensesTypeTextField = new TextField();
     	Label optionalLabel = new Label(" (optional)");
-    	expenseTypeRow.getChildren().addAll(expenseTypeLabel,incomeSourceTextField,optionalLabel);
+    	expenseTypeRow.getChildren().addAll(expenseTypeLabel,expensesTypeTextField,optionalLabel);
     	
     	Label expensesLabel = new Label("Expenses");
     	expensesLabel.setStyle("-fx-font-weight: bold;");
     	
     	ArrayList<TextField> expensesArrayList = new ArrayList<TextField>();
+    	ArrayList<CheckBox> taxCheckArrayList = new ArrayList<CheckBox>();
+    	
     	VBox expensesRow = new VBox();
     	HBox expensesHBox = new HBox();
     	TextField expensesTextField = new TextField("0.00");
@@ -195,11 +197,14 @@ public class ServiceSheetsController {
     	expensesTextField.setStyle("-fx-text-fill: red;");
     	Label writeOffLabel = new Label(" Expense can be written off ");
     	CheckBox taxableCheckBox = new CheckBox();
+    	
     	expensesArrayList.add(expensesTextField);
+    	taxCheckArrayList.add(taxableCheckBox);
+    	
     	expensesHBox.getChildren().addAll(expensesTextField,writeOffLabel,taxableCheckBox);
     	Button addButton = new Button("(+) add expense");
     	expensesRow.getChildren().addAll(expensesHBox,addButton);
-    	addButton.setOnAction(addEvent -> window.addExpenseTextField(expensesRow, expensesArrayList));
+    	addButton.setOnAction(addEvent -> window.addExpenseTextField(expensesRow,expensesArrayList,taxCheckArrayList));
     	
     	Label dailyInfoLabel = new Label("\nDaily Total Expenses");
     	dailyInfoLabel.setStyle("-fx-font-weight: bold;");
@@ -219,7 +224,7 @@ public class ServiceSheetsController {
     	Button enterExpensesButton = new Button("Save");
     	enterExpensesButton.setStyle("-fx-padding: 0.7em 0.7em;");
     	enterExpensesButton.setOnAction(dataEntryEvent -> expensesEntry.fillDailyArray(monthTextField,dayTextField,
-    			dateErrorLabel,null,enterErrorLabel));
+    			dateErrorLabel,expensesTypeTextField,expensesArrayList,taxCheckArrayList,enterErrorLabel));
     	
     	Button abortButton = new Button("Cancel");
     	abortButton.setStyle("-fx-background-radius: 100");
@@ -231,7 +236,6 @@ public class ServiceSheetsController {
     	Scene expensesScene = new Scene(expensesBox,450,650);
     	
     	applicationStage.setScene(expensesScene);
-    	*/
 	}
 	
 
