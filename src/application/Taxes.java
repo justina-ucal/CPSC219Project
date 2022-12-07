@@ -1,18 +1,16 @@
 package application;
 
-//FUTURE
 //import java.io.IOException;
 
 public class Taxes {
 	//FUTURE
-	/*private double incomeTax;
+	/*
+	
+	private double incomeTax;
 	private double incomeYTD;
 
 	Taxes(ManageFile bookkeepingCSV, double takeHome) throws NumberFormatException {
-		/**
-		 * constructor
-		 */
-		/*try{incomeYTD = bookkeepingCSV.readIncomeYTD();
+		try{incomeYTD = bookkeepingCSV.readIncomeYTD();
 						
 		} catch(IOException ioe) {System.out.println("INPUT/OUTPUT ISSUE - ERROR OCCURED WHILE"
 				+ " READING: serviceSheets.csv");
@@ -42,7 +40,8 @@ public class Taxes {
 		double taxesOnEarnings = incomeTax + EIcontribution + CPPcontribution;
 		return String.valueOf(taxesOnEarnings);
 		
-		// FUTURE
+		
+		//FUTURE
 		/*System.out.println("************"
 				+ "\n Income taxes previously applied to: " + incomeYTD
 				+ "\n Apply taxes to this income: " + takeHomeEarnings);
@@ -106,6 +105,10 @@ public class Taxes {
 			double upperBracket = taxableIncome - lowerBracket;
 			amountOwing = (lowerBracket * (lowRate)) + (upperBracket * (highRate));
 		} else amountOwing = (takeHomeEarnings)*(highRate);
-		return amountOwing;*/
+		return amountOwing;
+	}
+	
+	double getYTD() {
+		return incomeYTD;*/
 	}
 }

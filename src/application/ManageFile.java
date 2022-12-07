@@ -25,7 +25,7 @@ public class ManageFile {
 				+ "(taxable) expenses,YTD,,Daily (non-taxabale) expenses *keep recepits*,YTD,,Total take-home"
 				+ " (taxable) income (after tip-out),YTD,,Taxes + CPP + EI,YTD,,Net daily earnings (take-home "
 				+ "minus daily expenses and taxes),YTD" +
-				"\n "
+				"\n,,,,,,,,,,,,,,,,,,,,,"
 				+ "\nDrag formulas down from bottom right corner,,,,=(D3+E2),,,,,=(I3/D3),,=(K3+L2),,,=(N3+O2),,,"
 				+ "=(Q3+R2),,,=(T3+U2),,,=(W3+X2)");
 			
@@ -52,21 +52,29 @@ public class ManageFile {
 	//FUTURE
 	/*double readIncomeYTD() throws IOException, NumberFormatException {
 		
-		BufferedReader reader = new BufferedReader(new FileReader(bookkeepingPath));
-		
 		String[] mostRecentPreviousEntry = new String[23];
 		double returnValue = 0.0;
+		
+		BufferedReader reader = new BufferedReader(new FileReader(bookkeepingPath));
 		
 		//read last line
 		String line = reader.readLine();
 		while(line != null){line = reader.readLine();
-			if(line != null) {mostRecentPreviousEntry = line.split(",");
+			if(line != null) {mostRecentPreviousEntry = line.split(",");}
 			
-			if(mostRecentPreviousEntry.length >= 16 && mostRecentPreviousEntry[16] != "Total take-home (taxable) income (after tip-out)") {
-			try {UserInput previousTakeHomes = new UserInput(mostRecentPreviousEntry);
-				returnValue = returnValue + previousTakeHomes.getFileData();
-			} catch (NumberFormatException nfe) {throw nfe;}}}
+			System.out.println(mostRecentPreviousEntry.length);
+			if(mostRecentPreviousEntry.length > 16) {System.out.println(mostRecentPreviousEntry[17]);}
+		
 		}
+		
+		int index = 0;
+		while(index < mostRecentPreviousEntry.length) {
+			System.out.print(mostRecentPreviousEntry[index]);
+			index++;
+		}
+		
+		UserInput previousTakeHomes = new UserInput(mostRecentPreviousEntry);
+		returnValue = previousTakeHomes.getFileData();
 			
 		reader.close();
 		

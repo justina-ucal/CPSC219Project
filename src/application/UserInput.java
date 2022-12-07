@@ -35,23 +35,28 @@ public class UserInput {
 		}
 	}
 	
-	UserInput(String[] previousTakeHomeData) throws NumberFormatException{
-		/**
-		 * 
-		 */
-		if(previousTakeHomeData[16] == null) {fileData = 0.0;}
+	//FUTURE
+	/*UserInput(String[] previousTakeHomeData) {
+		if(previousTakeHomeData[17] == null) {fileData = 0.0;}
 		else {	boolean blankEntry = true;
-				for(char c: previousTakeHomeData[16].toCharArray()) {
+				for(char c: previousTakeHomeData[17].toCharArray()) {
+					int count = 0;
+					if(c == '.') {
+						if(count != 0) {c = '0';}
+						count ++;
+					}
 						if(c != ' ') {blankEntry = false;}
 						}
+				System.out.println("CHECK" + previousTakeHomeData[17]);
 					if(blankEntry == true) {fileData = 0.0;}
-					else try {userInput = Double.parseDouble(previousTakeHomeData[16]);
+					else try {fileData = Double.parseDouble(previousTakeHomeData[17]);
 						} catch(NumberFormatException nfe) {
-							System.out.println("\nINVALID TAKE-HOME INCOME DATA - CHECK CSV FILE:" + previousTakeHomeData[16]);
-							throw nfe;
+							System.out.println("\nINVALID TAKE-HOME YTD INCOME DATA - CHECK CSV FILE:" + previousTakeHomeData[17]);
+							fileData = 0.0;
+							//throw nfe;
 						}
 				}
-		}
+		}*/
 	
 	UserInput(String currencyCode) throws CodeFormatException{
 		/**
