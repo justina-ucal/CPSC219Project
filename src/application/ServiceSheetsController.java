@@ -14,45 +14,13 @@ public class ServiceSheetsController {
 	Stage applicationStage;
 	
 	@FXML
-	void cancel(Scene mainScene, CalculatePL unsavedEntry) {
-		/**
-		 * returns user to home menu without running any calculations nor saving any changes to the CSV file
-		 * this method will also reset changes made to the CalculatePL's instance variables
-		 * @param mainScene	is the Scene that sets the home menu 
-		 * @param unsavedEntry is the Object/instance of CalculatePL created by the method now calling the cancel method
-		 */
-		unsavedEntry.reset();
-		applicationStage.setScene(mainScene);
-		applicationStage.setTitle("Manage Spreadsheets");
-		
-	}
-	
-	@FXML
-	void addExpenseTextField (VBox expensesRow, ArrayList<TextField> expensesArrayList) {
-		/**
-		 * adds another TextField for the user to enter an expense value under a pre-existing TextField serving
-		 * the same purpose (within the VBox passed to this method)
-		 * @param expensesRow	is the VBox that contains the pre-existing TextField to enter an expense
-		 * @param expensesArrayList	is the ArrayList of all the TextFields for entering expenses
-		 */
-		HBox expensesHBox = new HBox();
-    	TextField expensesTextField = new TextField("0.00");
-    	expensesTextField.setPrefWidth(60);
-    	expensesTextField.setStyle("-fx-text-fill: red;");
-    	Label writeOffLabel = new Label(" Expense can be written off ");
-    	CheckBox taxableCheckBox = new CheckBox();
-    	expensesArrayList.add(expensesTextField);
-    	expensesHBox.getChildren().addAll(expensesTextField,writeOffLabel,taxableCheckBox);
-    	expensesRow.getChildren().addAll(expensesHBox);
-	}
-	
-	@FXML
     void enterEarnings (ActionEvent enterEarningsEvent) {
 		/**
 		 * sets the Scene for the user to enter their daily earnings information after having pressed the "Enter
 		 * earnings" Button on the home menu (i.e. mainScene) resulting in the Action Event (passed to this method)
 		 * @param enterEarningsEvent
 		 */
+		WindowAction window = new WindowAction();
 		
 		Scene mainScene = applicationStage.getScene();
 		applicationStage.setTitle("Enter earnings");
@@ -129,6 +97,8 @@ public class ServiceSheetsController {
     	expensesLabel.setStyle("-fx-font-weight: bold;");
     	
     	ArrayList<TextField> expensesArrayList = new ArrayList<TextField>();
+    	ArrayList<CheckBox> taxCheckArrayList = new ArrayList<CheckBox>();
+    	
     	VBox expensesRow = new VBox();
     	HBox expensesHBox = new HBox();
     	TextField expensesTextField = new TextField("0.00");
@@ -136,18 +106,21 @@ public class ServiceSheetsController {
     	expensesTextField.setStyle("-fx-text-fill: red;");
     	Label writeOffLabel = new Label(" Expense can be written off ");
     	CheckBox taxableCheckBox = new CheckBox();
+    	
     	expensesArrayList.add(expensesTextField);
+    	taxCheckArrayList.add(taxableCheckBox);
+    	
     	expensesHBox.getChildren().addAll(expensesTextField,writeOffLabel,taxableCheckBox);
     	Button addButton = new Button("(+) add expense");
     	expensesRow.getChildren().addAll(expensesHBox,addButton);
-    	addButton.setOnAction(addEvent -> addExpenseTextField(expensesRow,expensesArrayList));
+    	addButton.setOnAction(addEvent -> window.addExpenseTextField(expensesRow,expensesArrayList,taxCheckArrayList));
     	
     	Label dailyInfoLabel = new Label("\nDaily Total Earnings");
     	dailyInfoLabel.setStyle("-fx-font-weight: bold;");
     	Label dailyLabel = new Label("---Press below to calculate your take-home---");
     	
     	Button earningsButton = new Button("Calculate");
-    	CalculatePL dailyEarnings = new CalculatePL();
+    	FileArray dailyEarnings = new FileArray();
     	earningsButton.setOnAction(calcEvent -> dailyEarnings.calcDailyPL(hoursTextField,wageTextField,commissionTextField,
     			tipsEarnedTextField,tipOutTextField,expensesArrayList,dailyLabel,currencyTextField,codeErrorLabel));
     	
@@ -158,11 +131,11 @@ public class ServiceSheetsController {
     	Button enterEarningsButton = new Button("Save");
     	enterEarningsButton.setStyle("-fx-padding: 0.7em 0.7em;");
     	enterEarningsButton.setOnAction(dataEntryEvent -> dailyEarnings.fillDailyArray(monthTextField,dayTextField,
-    			dateErrorLabel,incomeSourceTextField,enterErrorLabel));
+    			dateErrorLabel,incomeSourceTextField,expensesArrayList,taxCheckArrayList,enterErrorLabel));
     	
     	Button abortButton = new Button("Cancel");
     	abortButton.setStyle("-fx-background-radius: 100");
-    	abortButton.setOnAction(abortEvent -> cancel(mainScene, dailyEarnings));
+    	abortButton.setOnAction(abortEvent -> window.cancel(applicationStage, mainScene, dailyEarnings));
  
     	earningsBox.getChildren().addAll(titleLabel,dateRow,dateErrorLabel,incomeInfoLabel,incomeSourceRow,currencyRow,
     			codeErrorLabel,earningsLabel,hourlyRow,comissionRow,tipsRow,expensesLabel,expensesRow,dailyInfoLabel,
@@ -178,7 +151,9 @@ public class ServiceSheetsController {
 		 * sets the Scene for the user to enter some expenses after having pressed the "Enter expenses" Button
 		 * on the home menu (i.e. mainScene) resulting in the Action Event (passed to this method)
 		 * @param enterExpensesEvent
-		 */
+		 *//*
+		WindowAction window = new WindowAction();
+		
 		Scene mainScene = applicationStage.getScene();
 		applicationStage.setTitle("Enter expenses");
 		
@@ -224,7 +199,7 @@ public class ServiceSheetsController {
     	expensesHBox.getChildren().addAll(expensesTextField,writeOffLabel,taxableCheckBox);
     	Button addButton = new Button("(+) add expense");
     	expensesRow.getChildren().addAll(expensesHBox,addButton);
-    	addButton.setOnAction(addEvent -> addExpenseTextField(expensesRow, expensesArrayList));
+    	addButton.setOnAction(addEvent -> window.addExpenseTextField(expensesRow, expensesArrayList));
     	
     	Label dailyInfoLabel = new Label("\nDaily Total Expenses");
     	dailyInfoLabel.setStyle("-fx-font-weight: bold;");
@@ -233,7 +208,7 @@ public class ServiceSheetsController {
     	TextField currencyTextField = new TextField("CAD");
     	Label codeErrorLabel = new Label("");
     	Button expensesButton = new Button("Calculate");
-    	CalculatePL expensesEntry = new CalculatePL();
+    	FileArray expensesEntry = new FileArray();
     	expensesButton.setOnAction(calcEvent -> expensesEntry.calcDailyPL(null, null, null, null, null, expensesArrayList,
     			dailyLabel,currencyTextField,codeErrorLabel));
     	
@@ -248,7 +223,7 @@ public class ServiceSheetsController {
     	
     	Button abortButton = new Button("Cancel");
     	abortButton.setStyle("-fx-background-radius: 100");
-    	abortButton.setOnAction(abortEvent -> cancel(mainScene, expensesEntry));
+    	abortButton.setOnAction(abortEvent -> window.cancel(applicationStage, mainScene, expensesEntry));
   
     	expensesBox.getChildren().addAll(titleLabel,dateRow,dateErrorLabel,expenseInfoLabel,expenseTypeRow,
     			expensesLabel,expensesRow,dailyInfoLabel,dailyLabel,expensesButton,enterLabel,enterExpensesButton,
@@ -256,7 +231,7 @@ public class ServiceSheetsController {
     	Scene expensesScene = new Scene(expensesBox,450,650);
     	
     	applicationStage.setScene(expensesScene);
-    	
+    	*/
 	}
 	
 

@@ -2,16 +2,16 @@ package application;
 
 public class CodeFormatException extends Exception {
 
-	public CodeFormatException() {
+	/*public CodeFormatException() {
 		// TODO Auto-generated constructor stub
-	}
+	}*/
 
 	public CodeFormatException(String message) {
 		super(message);
 		System.out.println(message);
 	}
 
-	public CodeFormatException(Throwable cause) {
+	/*public CodeFormatException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
@@ -25,6 +25,6 @@ public class CodeFormatException extends Exception {
 			boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub
-	}
+	}*/
 
 }

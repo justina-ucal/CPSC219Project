@@ -112,15 +112,23 @@ public class UserInput {
 	}
 	
 	public double getUserInput() {
+		/**
+		 * method returns user input (converted from TextField entry to double) for earning/expense
+		 */
 		return userInput;
 	}
 	
 	public String getCaptalizedCode() {
+		/**
+		 * method returns formatted currency code
+		 */
 		return capitalizedCode;
 	}
 	
 	public String getFormattedDate() {
-		
+		/**
+		 * method returns formatted date
+		 */
 		int mmInt = Integer.parseInt(mm);
 		
 			 if(mmInt==1) {return ("Jan " + dd);}

@@ -24,6 +24,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Manage Spreadsheets");
 			primaryStage.show();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
