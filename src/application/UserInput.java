@@ -5,7 +5,6 @@ import javafx.scene.control.TextField;
 public class UserInput {
 	
 	private double userInput;
-	private double fileData;
 	private String capitalizedCode;
 	private String mm;
 	private String dd;
@@ -142,9 +141,10 @@ public class UserInput {
 		return userInput;
 	}
 	
-	public double getFileData() {
+	//FUTURE
+	/*public double getFileData() {
 		return fileData;
-	}
+	}*/
 	
 	public String getCaptalizedCode() {
 		/**
