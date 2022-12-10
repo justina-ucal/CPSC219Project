@@ -8,6 +8,7 @@ public class UserInput {
 	private String capitalizedCode;
 	private String mm;
 	private String dd;
+	//private double fileData;
 	
 	UserInput(TextField userEntered) throws NumberFormatException{
 		/**
@@ -36,9 +37,9 @@ public class UserInput {
 	
 	//FUTURE
 	/*UserInput(String[] previousTakeHomeData) {
-		if(previousTakeHomeData[17] == null) {fileData = 0.0;}
+		if(previousTakeHomeData[16] == null) {fileData = 0.0;}
 		else {	boolean blankEntry = true;
-				for(char c: previousTakeHomeData[17].toCharArray()) {
+				for(char c: previousTakeHomeData[16].toCharArray()) {
 					int count = 0;
 					if(c == '.') {
 						if(count != 0) {c = '0';}
@@ -46,9 +47,9 @@ public class UserInput {
 					}
 						if(c != ' ') {blankEntry = false;}
 						}
-				System.out.println("CHECK" + previousTakeHomeData[17]);
+				System.out.println("CHECK" + previousTakeHomeData[16]);
 					if(blankEntry == true) {fileData = 0.0;}
-					else try {fileData = Double.parseDouble(previousTakeHomeData[17]);
+					else try {fileData = Double.parseDouble(previousTakeHomeData[16]);
 						} catch(NumberFormatException nfe) {
 							System.out.println("\nINVALID TAKE-HOME YTD INCOME DATA - CHECK CSV FILE:" + previousTakeHomeData[17]);
 							fileData = 0.0;

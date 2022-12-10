@@ -17,6 +17,12 @@ public class FileArray extends CalculatePL{
 			TextField incomeSourceTextField, ArrayList<TextField> expensesArrayList, ArrayList<CheckBox>
 			taxCheckArrayList, Label enterErrorLabel, Stage applicationStage, Scene mainScene, 
 			CalculatePL unsavedEntry) {
+		/**
+		 * this method will complete creating the final array that'll be appended to the CSV file for
+		 * long-term shortage including calculating the user's tax information
+		 * this method will also call the ManageFile class to append the final array that it creates to
+		 * the CSV file
+		 */
 		if(super.wasCalculated != 1) {enterErrorLabel.setText(" Er: (!) "
 				+ "Must first calculate earnings above to write data to file.");
 		}

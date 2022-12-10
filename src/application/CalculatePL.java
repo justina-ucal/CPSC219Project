@@ -28,6 +28,10 @@ public class CalculatePL {
 			Label dailyLabel, TextField currencyTextField, Label codeErrorLabel) {
 		/**
 		 * PL stands from "Profit and Loss"
+		 * this method will begin populating an array that will eventually be used to create the final array
+		 * that'll be appended to the CSV file for long-term shortage
+		 * this method will also calculate the user's net daily earnings/expenses to be displayed to the user
+		 * before the user confirms whether to save the data to the CSV file 
 		 */
 		
 		String[] babyArray = new String[23];
